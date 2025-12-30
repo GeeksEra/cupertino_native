@@ -196,7 +196,9 @@ class _CNTabBarState extends State<CNTabBar> {
     if (call.method == 'valueChanged') {
       final args = call.arguments as Map?;
       final idx = (args?['index'] as num?)?.toInt();
-      if (idx != null && idx != _lastIndex) {
+      if (idx != null) {
+        // Always call onTap even if same index is tapped
+        // This allows handling of same-tab taps (e.g., pop to root)
         widget.onTap(idx);
         _lastIndex = idx;
       }
